@@ -1,19 +1,21 @@
 ## Curso Docker Full Cycle
 
-### Docker commands
-- Rodar um container: ```docker run NOME```
-- Parar um container: ```docker stop NOME```
-- Iniciar um container: ```docker start NOME```
+### Comandos Container: nginx como exemplo
+- Rodar um container: ```docker run nginx```
+- Parar um container: ```docker stop nginx```
+- Iniciar um container: ```docker start nginx```
 - Listar os containers em execução: ```docker ps```
 - Listar todos os container: ```docker ps -a```
-- Remover um container parado: ```docker rm NOME```
-- Forçar Remover container: ```docker rm -f NOME```
-- Nomear um container: ```docker run --name NOVO_NOME NOME```
-- Entrar em um container: ```docker exec -it NOME bash```
-
+- Remover um container parado: ```docker rm nginx```
+- Forçar Remover container: ```docker rm -f nginx```
+- Nomear um container: ```docker run --name nginx nginx```
+- Entrar em um container: ```docker exec -it NOnginxME bash```
+- Mapear pasta local pra Container: ```docker run -v "$(pwd)"/html:/usr/share/nginx/html nginx```
+- Executar container montando volume: ```docker run -d --name nginx -p 8080:80 --mount type=bind,source="$(pwd)"/html,target=/usr/share/nginx/html nginx```
 
 ### Opções Docker
 - Modo iterativo: ```-it```
-- detach: ```-d```
+- detach(deixar terminal livre): ```-d```
 - Mapear porta: ```-p PORTA:PORTA_CONTAINER```
-- Configurar volume: ```-v NOME_VOLUME```
+- Mapear Volume: ```-v NOME_VOLUME:VOLUME_CONTAINER```
+- 
