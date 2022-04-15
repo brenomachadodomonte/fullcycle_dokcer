@@ -20,12 +20,21 @@
 - Remover um volume: ```docker volume rm NOME_VOLUME```
 - Inspecionar um volume: ```docker volume inspect NOME_VOLUME``` 
 
-## Comandos Imagem
+### Comandos Imagem
 - Criar uma imagem via Dockerfile: ```docker build -t NOME_IMAGEM:latest .```
-- 
+- Listar imagens: ```docker images```
 
 ### Opções Docker:
 - Modo iterativo: ```-it```
 - detach(deixar terminal livre): ```-d```
 - Mapear porta: ```-p PORTA:PORTA_CONTAINER```
 - Mapear Volume: ```-v NOME_VOLUME:VOLUME_CONTAINER```
+
+### Comandos Dockerfile
+- Imagem de base: ```FROM nginx:latest```
+- Diretório de trabalho: ```WORKDIR /diretorio```
+- Rodar um comando: ```RUN comando```
+- Configurar usuário: ```USER nome_usuario```
+- Ponto de entrada: ```ENTRYPOINT file```
+- Executar comandos(Substituível): ```CMD ["echo", "Hello World"]```
+- Executar comandos(Fixos): ```ENTRYPOINT ["echo", "Hello World"]```
