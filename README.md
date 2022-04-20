@@ -15,7 +15,6 @@
 - Mapear volume para container: ```docker run -d --name nginx -p 8080:80 --mount type=volume,source=NOME_VOLUME,target=/app nginx``` ou ```docker run -d --name nginx2 -v NOME_VOLUME nginx```
 - Mostrar bash do Container: ```docker attach NOME```
 - Executar container com Rede: ```docker run -dti --network NOME_REDE NOME_CONTAINER```
-- 
 
 ### Comandos Volumes
 - Listar volumes: ```docker volume ls```
@@ -48,3 +47,9 @@
 - Criar uma nova Rede: ```docker network create --driver bridge NOME_REDE```
 - Conectar container a Rede: ```docker network connect NOME_REDE NOME_CONTAINER```
 - Container acessando maquina: ```curl http://host.docker.internal:8000```
+
+### Desenvolver sem ambiente instalado
+- ```docker run --rm -it -v $(pwd)/:usr/src/app -p 3000:3000 node:15 bash ```
+- ```npm init```
+- ```npm install express --save```
+- ```node index.js```
