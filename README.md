@@ -24,6 +24,7 @@
 
 ### Comandos Imagem
 - Criar uma imagem via Dockerfile: ```docker build -t NOME_IMAGEM:latest .```
+- Criar imagem outro nome: ```docker build -t NOME_IMAGEM:latest . -f Dockerfile.prod```
 - Listar imagens: ```docker images```
 
 ### Opções Docker:
