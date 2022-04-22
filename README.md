@@ -54,3 +54,7 @@
 - ```npm init```
 - ```npm install express --save```
 - ```node index.js```
+
+### Comandos docker compose
+- Levantar os serviços: ```docker-compose up -d```
+- Levantar os serviços e buildar: ```docker-compose up -d --build```
