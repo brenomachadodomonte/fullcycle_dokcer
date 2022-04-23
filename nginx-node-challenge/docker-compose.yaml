@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  node:
+    
+  db:
+    image: mariadb:10.5.8
+    command: --innodb-use-native-aio=0
+    container_name: maria-db
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MARIADB_DATABASE=nodedb
+      - MARIADB_USER=root
+      - MARIADB_ROOT_PASSWORD=root
+    networks:
+      - nodenet
+
+networks:
+  nodenet:
+    driver: bridge
