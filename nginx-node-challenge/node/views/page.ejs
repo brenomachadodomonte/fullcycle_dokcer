@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <title>Node Challenge</title>
+        <style>
+            #people {
+              font-family: Arial, Helvetica, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            #people td, #people th {
+              border: 1px solid #ddd;
+              padding: 8px;
+            }
+            
+            #people tr:nth-child(even){background-color: #f2f2f2;}
+            
+            #people tr:hover {background-color: #ddd;}
+            
+            #people th {
+              padding-top: 12px;
+              padding-bottom: 12px;
+              text-align: left;
+              background-color: #04AA6D;
+              color: white;
+            }
+            
+            h1 {
+                animation: blinker 1s linear infinite;
+            }
+            
+            @keyframes blinker {
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            #content {
+                text-align: center;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            button#add {
+                width: 30%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            input[type=text], select {
+                width: 65%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+        </style>
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="content">
+            <h1>Full Cycle Rocks!</h1>
+
+            <input type="text" placeholder="Nome" id="name">
+            <button id="add">ADICIONAR</button>
+            <br><br>
+            <table id="people">
+                <tr>
+                    <th>ID</td>
+                    <th>NOME</td>
+                    <th>AÇÕES</td>
+                </tr>
+                <% if (result.length > 0) { %>
+                    <% result.forEach(function(person) { %>
+                        <tr>
+                            <td><%= person.id %></td>
+                            <td><%= person.name %></td>
+                            <td><button class="delete-button" data-id="<%= person.id %>">Excluir</button></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="3">Nenhum registro encontrado!</td>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+
+
+        <script>
+            $('#add').click(function(){
+                const nome = $('#name').val();
+                if(nome != '') {
+                    $.ajax({
+                        url: '/people',
+                        type: 'POST',
+                        data: {
+                            name: nome
+                        }
+                    }).done(function() {
+                        document.location.reload(true);
+                    });
+                } else {
+                    alert('O nome não pode ser vazio');
+                }
+            });
+
+            $('.delete-button').click(function(){
+                const id = $(this).data('id');
+                $.ajax({
+                    url: `/people/${id}`,
+                    type: 'DELETE'
+                }).done(function() {
+                    document.location.reload(true);
+                });
+            });
+        </script>
+    </body>
+</html>

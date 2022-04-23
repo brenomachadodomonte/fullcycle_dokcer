@@ -1,63 +1,62 @@
 const express = require('express');
 const { Sequelize, DataTypes } = require('sequelize');
+const ejs = require('ejs');
+var bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+// Criar Conexão com o banco de dados
+// const sequelize = new Sequelize('nodedb', 'root', 'root', {
+//     host: 'db',
+//     dialect: 'mariadb'
+// });
 
-const sequelize = new Sequelize('nodedb', 'root', 'root', {
-    host: 'db',
-    dialect: 'mariadb'
-});
+// //Criar tabela people
+// const People = sequelize.define('people', {
+//     id: {
+//         type: DataTypes.INTEGER,
+//         autoIncrement: true,
+//         primaryKey: true
+//     },
+//     name: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     },
+// });
 
-const People = sequelize.define('people', {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-});
+let people = [];
+let current = 1;
 
+//Criar rotas
 app.get('/', async (req, res) => {
-    const result = await People.findAll();
-    
-    const response = [
-        '<h1>Full cycle</h1><br>',
-        '<table>',
-        '<th><td>ID</td><td>NOME</td></th>',
-        result.map(item => `<td><td>${item.id}</td><td>${item.name}</td></td>`).join(''),
-        '</table>'
-    ].join('');
-
-    res.send(response);
+    //const result = await People.findAll();
+    const result = people;
+    res.render('page', { result: result });
 });
 
-app.post('/people', (req, res) => {
+app.post('/people', async (req, res) => {
     const { name } = req.body;
-    //cadastrar pessoa
+    
+    //const person = await People.create({ name: name });
+    const person = { id: current++, name: name };
+    people.push(person);
+    res.send(person);
 });
 
 app.delete('/people/:id', (req, res) => {
     const { id } = req.params;
-    // deletar
+    // await People.destroy({
+    //     where: {
+    //         id: id
+    //     }
+    // });
+    people = people.filter(person => person.id != id);
+    res.send('deleted');
 });
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 });
-
-
-function createTable() {
-    
-}
-
-function create(name) {
-
-}
-
-function deletebyId(id) {
-
-}
